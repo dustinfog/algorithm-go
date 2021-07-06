@@ -5,26 +5,26 @@ import "testing"
 func TestCharSet(t *testing.T) {
 	a := new(CharSet)
 
-	ok := a.Afflux("doit")
+	ok, b := a.Afflux("doit")
 	if !ok {
 		t.Fatal(1)
 	}
 
-	if a.Len() != 4 {
+	if b.Len() != 4 {
 		t.Fatal(2)
 	}
 
-	ok = a.Afflux("world")
+	ok, _ = b.Afflux("world")
 	if ok {
 		t.Fatal(3)
 	}
 
-	ok = a.Afflux("wrl")
+	ok, c := b.Afflux("wrl")
 	if !ok {
 		t.Fatal(4)
 	}
 
-	if a.Len() != 7 {
+	if c.Len() != 7 {
 		t.Fatal(5)
 	}
 }
@@ -37,11 +37,16 @@ func TestMaxUniqCharLength(t *testing.T) {
 
 	l = MaxUniqCharLength([]string{"cha", "r", "act", "ers"})
 	if l != 6 {
-		t.Fatal(1)
+		t.Fatal(2)
 	}
 	l = MaxUniqCharLength([]string{"abcdefghijklmnopqrstuvwxyz"})
 	if l != 26 {
-		t.Fatal(1)
+		t.Fatal(3)
+	}
+
+	l = MaxUniqCharLength([]string{"a", "abc", "d", "de", "def"})
+	if l != 6 {
+		t.Fatal(4)
 	}
 }
 

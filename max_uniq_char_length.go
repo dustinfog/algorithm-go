@@ -5,13 +5,13 @@ type CharSet struct {
 	m int32
 }
 
-func (cs *CharSet) Afflux(str string) bool {
+func (cs CharSet) Afflux(str string) (bool, *CharSet) {
 	m := cs.m
 	l := 0
 	for _, c := range str {
 		shift := int32(1) << (c - 'a')
 		if m&shift != 0 {
-			return false
+			return false, nil
 		}
 
 		m |= shift
@@ -20,7 +20,7 @@ func (cs *CharSet) Afflux(str string) bool {
 
 	cs.m = m
 	cs.l += l
-	return true
+	return true, &cs
 }
 
 func (cs *CharSet) Len() int {
@@ -30,16 +30,19 @@ func (cs *CharSet) Len() int {
 func MaxUniqCharLength(arr []string) int {
 	var dp []*CharSet
 	for _, str := range arr {
-		currCs := &CharSet{}
-		if !currCs.Afflux(str) {
+		ok, cs := (&CharSet{}).Afflux(str)
+		if !ok {
 			continue
 		}
 
-		for _, cs := range dp {
-			cs.Afflux(str)
+		l := len(dp)
+		dp = append(dp, cs)
+		for i := 0; i < l; i++ {
+			ok, nCs := dp[i].Afflux(str)
+			if ok {
+				dp = append(dp, nCs)
+			}
 		}
-
-		dp = append(dp, currCs)
 	}
 
 	var max = 0

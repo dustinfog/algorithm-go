@@ -1,13 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
-
-func TestHello(t *testing.T) {
-	fmt.Printf("%d", int(2e9))
-}
 
 func TestMinSkips(t *testing.T) {
 	ret := 0

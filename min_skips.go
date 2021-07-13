@@ -30,6 +30,7 @@ func minSkips(dist []int, speed, hoursBefore int) (ans int) {
 
 	maxD := hoursBefore * speed
 	for i, d := range dp {
+		// d小意味着时间短
 		if d <= maxD {
 			return i
 		}

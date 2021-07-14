@@ -20,6 +20,7 @@ func reachNumber(target int) int {
 	return k + 1 + k%2
 }
 
+// 直接连加的复杂度是 根号num, 二分查找的复杂度是lg num
 func searchSumSequentialCeil(num int) int {
 	start, end := 1, num
 	for {
